@@ -1,10 +1,17 @@
 import pytest
 
 def fix_phone_num(phone_num_to_fix):
+  # Remove all non-digit characters
+  cleaned_num = "".join(filter(str.isdigit, phone_num_to_fix))
+  
+  # Validate input length
+  if len(cleaned_num) != 10:
+        raise ValueError("Invalid phone number format")
+    
   # given "5125558823". Split the parts, then recombine and return
-  area_code = phone_num_to_fix[0:3] # 512 (first three digits)
-  three_part = phone_num_to_fix[3:6] # 555 (next three digits)
-  four_part = phone_num_to_fix[6:] # # 8823 (last four digits)
+  area_code = cleaned_num[0:3] # 512 (first three digits)
+  three_part = cleaned_num[3:6] # 555 (next three digits)
+  four_part = cleaned_num[6:] # # 8823 (last four digits)
   
   fixed_num = "(" + area_code + ")" + " " + three_part + " " + four_part 
   
@@ -25,6 +32,11 @@ def test_fix_phone_num_invalid_input():
 
     with pytest.raises(ValueError):
         fix_phone_num("555-442-98761") 
+
+    with pytest.raises(ValueError):
+        fix_phone_num("ABCDE12345")  
+
+      
 
 
 
