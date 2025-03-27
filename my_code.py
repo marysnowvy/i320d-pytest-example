@@ -18,3 +18,15 @@ def test_fix_phone_num():
 def test_handle_non_standard_formats():
   assert fix_phone_num("555-442-9876") == "(555) 442 9876"
   assert fix_phone_num("(321) 654 3333") == "(321) 654 3333"
+
+def test_fix_phone_num_invalid_input():
+    with pytest.raises(ValueError):  
+        fix_phone_num("51") 
+
+    with pytest.raises(ValueError):
+        fix_phone_num("555-442-98761") 
+
+
+
+   
+
